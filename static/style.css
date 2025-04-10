@@ -1,0 +1,246 @@
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #00274d;
+    color: white;
+    padding: 20px;
+}
+
+.header-logo{
+    height: 50px;
+    margin-right: 15px;
+}
+
+.header-title{
+    font-size: 28px;
+    font-weight: bold;
+}
+
+
+.navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+
+.search-form {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+
+}
+
+.search-input {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    font-size: 14px;
+    margin-right: 2px;
+}
+
+.search-button {
+    background-color: #004080;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.search-button:hover {
+    background-color: #0066cc;
+}
+
+.search-input:focus {
+    border-color: #004080;
+}
+
+.navigation a {
+    color: white;
+    text-decoration: none;
+    font-weight: normal;
+}
+
+.navigation a:visited {
+    color: white;
+}
+
+.navigation a:hover {
+    text-decoration: none;
+    color: #d9d9d9;
+}
+
+.navigation a:active {
+    color: #b3b3b3;
+}
+
+.rungtynes-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.rungtynes-table th, .rungtynes-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+.rungtynes-table thead {
+    background-color: #004080;
+    color: white;
+}
+
+.rungtynes-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.pagination {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.page-link {
+    padding: 5px 10px;
+    background-color: #004080;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.page-link:hover {
+    background-color: #0066cc;
+}
+
+.pagination span {
+    font-size: 16px;
+    color: #333;
+}
+.flash-messages {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+}
+
+.flash {
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+}
+
+.flash.success {
+    background-color: #4caf50;
+}
+
+.flash.error {
+    background-color: #f44336;
+}
+.stats-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0;
+}
+
+.stats-title {
+    text-align: center;
+    color: #004080;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.stats-table {
+    width: 70%;
+    max-width: 800px;
+    border-collapse: collapse;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.stats-table th, .stats-table td {
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.stats-table th {
+    background-color: #004080;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.stats-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.stats-table tbody tr:hover {
+    background-color: #e6f7ff;
+}
+
+/* Centruotas ir horizontalus mygtukų išdėstymas */
+.rungtynes-table td a.edit-button,
+.rungtynes-table td form {
+    display: inline-block; /* Paverčia abu elementus vienoje eilutėje */
+    margin-right: 10px; /* Tarpas tarp mygtukų */
+    vertical-align: middle; /* Sulygina vertikaliai */
+}
+
+/* Pabraukimo pašalinimas nuorodai „Redaguoti“ */
+.edit-button {
+    text-decoration: none; /* Pašalina pabraukimą */
+    color: #004080; /* Tinkama spalva */
+}
+
+.edit-button:hover {
+    text-decoration: underline; /* Grąžina pabraukimą užvedus pelę */
+    color: #003366; /* Patamsinta spalva užvedus pelę */
+}
+
+/* Stilizavimas „Ištrinti“ mygtukui */
+.delete-button {
+    background-color: #f44336; /* Raudonas fonas */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.delete-button:hover {
+    background-color: #d32f2f; /* Tamsesnis raudonas fonas užvedus pelę */
+}
+
+/* Lentelės stiliai papildomai vizualinei tvarkai */
+.rungtynes-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+}
+
+.rungtynes-table th, .rungtynes-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.rungtynes-table th {
+    background-color: #004080;
+    color: white;
+}

@@ -1,13 +1,24 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, flash
 from models import db, NHL
+
+
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///nhl.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.secret_key = "labai_saugus_ir_unikalus_raktas_12345"
 
 db.init_app(app)
+
+
 def seed_data():
+    if NHL.query.first():  # Tikrinama, ar lentelėje yra įrašų
+        print("Duomenys jau egzistuoja. Naujų įrašų neįterpiama.")
+        return
+
     rungtynes = [
+
         NHL(data="2025-04-09", komanda_1="Colorado Avalanche", komanda_2="Vegas Golden Knights", taškai_1=3, taškai_2=2),
         NHL(data="2025-04-09", komanda_1="Seattle Kraken", komanda_2="Dallas Stars", taškai_1=1, taškai_2=5),
         NHL(data="2025-04-09", komanda_1="Vancouver Canucks", komanda_2="Nashville Predators", taškai_1=3, taškai_2=4),
@@ -36,28 +47,101 @@ def seed_data():
         NHL(data="2025-04-06", komanda_1="Buffalo Sabres", komanda_2="Tampa Bay Lightning", taškai_1=3, taškai_2=2),
         NHL(data="2025-04-06", komanda_1="Montreal Canadiens", komanda_2="Philadelphia Flyers", taškai_1=3, taškai_2=2),
     ]
-
     db.session.bulk_save_objects(rungtynes)
     db.session.commit()
-    seed_data()
     print("Duomenys sėkmingai įkelti!")
+
+
 with app.app_context():
     db.create_all()
-    # seed_data()
 
+    seed_data()
 
 
 @app.route('/')
-def home():
-    return render_template('index.html')
+@app.route('/page/<int:page>')
+def home(page=1):
+    per_page = 10
 
-@app.route('/results')
-def results():
-    return render_template('stats.html')
+    pagination = NHL.query.paginate(page=page, per_page=per_page)
+    return render_template('index.html', pagination=pagination)
 
-@app.route('/add')
+@app.route('/search', methods=['GET'])
+def search():
+    query = request.args.get('query')  # Gauti paieškos užklausą iš formos
+    if query:
+        # Filtruoti rungtynes pagal komandų pavadinimus arba datą
+        rezultatai = NHL.query.filter(
+            (NHL.komanda_1.ilike(f"%{query}%")) |
+            (NHL.komanda_2.ilike(f"%{query}%")) |
+            (NHL.data.ilike(f"%{query}%"))
+        ).all()
+        return render_template('search.html', rezultatai=rezultatai, query=query)
+    else:
+        return render_template('search.html', rezultatai=[], query=None)
+
+@app.route('/edit/<int:id>', methods=['GET', 'POST'])
+def edit(id):
+    rungtynes = NHL.query.get_or_404(id)
+    if request.method == 'POST':
+        rungtynes.data = request.form['data']
+        rungtynes.komanda_1 = request.form['komanda_1']
+        rungtynes.taškai_1 = request.form['taškai_1']
+        rungtynes.komanda_2 = request.form['komanda_2']
+        rungtynes.taškai_2 = request.form['taškai_2']
+        db.session.commit()
+        flash("Rungtynių duomenys sėkmingai atnaujinti!", "success")
+        return redirect('/')
+    return render_template('edit.html', rungtynes=rungtynes)
+
+@app.route('/delete/<int:id>', methods=['POST'])
+def delete(id):
+    rungtynes = NHL.query.get_or_404(id)
+    db.session.delete(rungtynes)
+    db.session.commit()
+    flash("Rungtynės sėkmingai ištrintos!", "success")
+    return redirect('/')
+
+@app.route('/stats')
+def stats():
+    statistika_query = db.session.query(
+        NHL.komanda_1.label('komanda'),
+        db.func.count(NHL.taškai_1 > NHL.taškai_2).label('laimėjimų_skaičius'),
+        db.func.sum(NHL.taškai_1).label('pelnyti_taškai')
+    ).group_by(NHL.komanda_1).order_by(
+        db.desc('laimėjimų_skaičius'),
+        db.desc('pelnyti_taškai'),
+        NHL.komanda_1
+    ).all()
+
+    statistika = []
+    for index, komanda in enumerate(statistika_query, start=1):
+        statistika.append({
+            "pozicija": index,
+            "komanda": komanda[0],
+            "laimėjimų_skaičius": komanda[1],
+            "pelnyti_taškai": komanda[2]
+        })
+
+    return render_template('stats.html', statistika=statistika)
+
+@app.route('/add', methods=['GET', 'POST'])
 def add():
+    if request.method == 'POST':
+        rungtynes = NHL(
+            data=request.form['data'],
+            komanda_1=request.form['komanda_1'],
+            taškai_1=request.form['taškai_1'],
+            komanda_2=request.form['komanda_2'],
+            taškai_2=request.form['taškai_2']
+        )
+        db.session.add(rungtynes)
+        db.session.commit()
+        flash("Rungtynės sėkmingai pridėtos!", "success")
+        return redirect('/')
     return render_template('form.html')
+
+
 
 
 if __name__ == '__main__':

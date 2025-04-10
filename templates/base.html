@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NHL Varžybos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="header">
+    <img src="{{ url_for('static', filename='nhl-logo.png') }}" alt="NHL logotipas" class="header-logo">
+    <h1  class="header-title">NHL VARŽYBOS</h1>
+    <nav class="navigation">
+    <ul>
+        <li><a href="/">Pagrindinis</a></li>
+        <li><a href="/add">Pridėti rungtynes</a></li>
+        <li><a href="/stats">Statistika</a></li>
+    </ul>
+        <form class="search-form" method="GET" action="/search">
+            <input type="text" name="query" placeholder="Ieškoti komandos ar datos..." class="search-input">
+            <button type="submit" class="search-button">🔍</button>
+        </form>
+    </nav>
+</header>
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="flash-messages">
+            {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+<footer class="footer">
+    <p>&copy; 2025 NHL Varžybos</p>
+</footer>
+</body>
+</html>

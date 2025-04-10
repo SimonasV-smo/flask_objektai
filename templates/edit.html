@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="stats-title">Redaguoti rungtynes</h2>
+<table class="rungtynes-table">
+    <thead>
+        <tr>
+            <th>Data</th>
+            <th>Pirmoji komanda</th>
+            <th>Antroji komanda</th>
+            <th>Rezultatas</th>
+            <th>Veiksmai</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <form method="POST">
+                <td><input type="text" name="data" value="{{ rungtynes.data }}" required></td>
+                <td><input type="text" name="komanda_1" value="{{ rungtynes.komanda_1 }}" required></td>
+                <td><input type="text" name="komanda_2" value="{{ rungtynes.komanda_2 }}" required></td>
+                <td>
+                    <input type="number" name="taškai_1" value="{{ rungtynes.taškai_1 }}" required> :
+                    <input type="number" name="taškai_2" value="{{ rungtynes.taškai_2 }}" required>
+                </td>
+                <td>
+                    <button type="submit">Išsaugoti</button>
+                    <button type="button" onclick="history.back()">Atšaukti</button>
+                </td>
+            </form>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}

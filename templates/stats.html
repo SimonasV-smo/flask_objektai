@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="stats-title">Komandų Statistika</h2>
+<div class="stats-container">
+    <table class="stats-table">
+        <thead>
+            <tr>
+                <th>Pozicija</th>
+                <th>Komanda</th>
+                <th>Laimėjimai</th>
+                <th>Pelnyti Taškai</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for komanda in statistika %}
+            <tr>
+                <td>{{ komanda.pozicija }}</td>
+                <td>{{ komanda.komanda }}</td>
+                <td>{{ komanda.laimėjimų_skaičius }}</td>
+                <td>{{ komanda.pelnyti_taškai }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

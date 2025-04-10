@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="stats-title">Pridėti rungtynes</h2>
+<div class="form-container">
+    <table class="rungtynes-table">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Pirmoji komanda</th>
+                <th>Antroji komanda</th>
+                <th>Rezultatas</th>
+                <th>Veiksmai</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <form method="POST" action="/add">
+                    <td><input type="text" name="data" placeholder="Įveskite datą (YYYY-MM-DD)" required></td>
+                    <td><input type="text" name="komanda_1" placeholder="Pirmoji komanda" required></td>
+                    <td><input type="text" name="komanda_2" placeholder="Antroji komanda" required></td>
+                    <td>
+                        <input type="number" name="taškai_1" placeholder="Taškai 1" required> :
+                        <input type="number" name="taškai_2" placeholder="Taškai 2" required>
+                    </td>
+                    <td>
+                        <button type="submit">Pridėti</button>
+                        <button type="button" onclick="history.back()">Atšaukti</button>
+                    </td>
+                </form>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

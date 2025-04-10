@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="stats-title">Paieškos rezultatai: "{{ query }}"</h2>
+{% if rezultatai %}
+    <table class="rungtynes-table">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Pirmoji komanda</th>
+                <th>Antroji komanda</th>
+                <th>Rezultatas</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rungtynes in rezultatai %}
+            <tr>
+                <td>{{ rungtynes.data }}</td>
+                <td>{{ rungtynes.komanda_1 }}</td>
+                <td>{{ rungtynes.komanda_2 }}</td>
+                <td>{{ rungtynes.taškai_1 }} : {{ rungtynes.taškai_2 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>Rezultatų nerasta.</p>
+{% endif %}
+{% endblock %}
