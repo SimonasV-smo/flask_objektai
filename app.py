@@ -68,9 +68,8 @@ def home(page=1):
 
 @app.route('/search', methods=['GET'])
 def search():
-    query = request.args.get('query')  # Gauti paieškos užklausą iš formos
+    query = request.args.get('query')
     if query:
-        # Filtruoti rungtynes pagal komandų pavadinimus arba datą
         rezultatai = NHL.query.filter(
             (NHL.komanda_1.ilike(f"%{query}%")) |
             (NHL.komanda_2.ilike(f"%{query}%")) |

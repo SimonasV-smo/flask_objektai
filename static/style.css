@@ -192,28 +192,28 @@
     background-color: #e6f7ff;
 }
 
-/* Centruotas ir horizontalus mygtukų išdėstymas */
+
 .rungtynes-table td a.edit-button,
 .rungtynes-table td form {
-    display: inline-block; /* Paverčia abu elementus vienoje eilutėje */
-    margin-right: 10px; /* Tarpas tarp mygtukų */
-    vertical-align: middle; /* Sulygina vertikaliai */
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: middle;
 }
 
-/* Pabraukimo pašalinimas nuorodai „Redaguoti“ */
+
 .edit-button {
-    text-decoration: none; /* Pašalina pabraukimą */
-    color: #004080; /* Tinkama spalva */
+    text-decoration: none;
+    color: #004080;
 }
 
 .edit-button:hover {
-    text-decoration: underline; /* Grąžina pabraukimą užvedus pelę */
-    color: #003366; /* Patamsinta spalva užvedus pelę */
+    text-decoration: underline;
+    color: #003366;
 }
 
-/* Stilizavimas „Ištrinti“ mygtukui */
+
 .delete-button {
-    background-color: #f44336; /* Raudonas fonas */
+    background-color: #f44336;
     color: white;
     border: none;
     padding: 5px 10px;
@@ -223,10 +223,10 @@
 }
 
 .delete-button:hover {
-    background-color: #d32f2f; /* Tamsesnis raudonas fonas užvedus pelę */
+    background-color: #d32f2f;
 }
 
-/* Lentelės stiliai papildomai vizualinei tvarkai */
+
 .rungtynes-table {
     width: 100%;
     border-collapse: collapse;
